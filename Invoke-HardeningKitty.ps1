@@ -507,7 +507,7 @@
         $ReportFile = "hardeningkitty_report_"+$Hostname+"_"+$ListName+"-$FileDate.csv"
     }
     If ($Report.IsPresent) {
-        $Message = '"ID","Name","Severity","Result","Recommended"'
+        $Message = '"ID","DefaultValue","Name","Severity","Result","Recommended"'
         Add-MessageToFile -Text $Message -File $ReportFile
     }
     If ($Backup.IsPresent -and $BackupFile.Length -eq 0) {
@@ -626,11 +626,12 @@
                     try {
                         $Result = Get-ItemPropertyValue -Path $Finding.RegistryPath -Name $Finding.RegistryItem
                     } catch {
-                        $Result = $Finding.DefaultValue
+                        $Result = "CeckOverDefaultValue"
                     }
                 } Else {
-                    $Result = $Finding.DefaultValue
+                    $Result = "CeckOverDefaultValue"
                 }
+                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -701,11 +702,12 @@
                         }
 
                     } catch {
-                        $Result = $Finding.DefaultValue
+                        $Result = "CeckOverDefaultValue"
                     }
                 } Else {
-                    $Result = $Finding.DefaultValue
+                    $Result = "CeckOverDefaultValue"
                 }
+                $Result = "CeckOverDefaultValue"
             }
             
             #
@@ -743,8 +745,9 @@
                     $Result = $Matches[2]
 
                 } catch {
-                    $Result = $Finding.DefaultValue
+                    $Result = "CeckOverDefaultValue"
                 }
+                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -782,8 +785,9 @@
                     }
 
                 } catch {
-                    $Result = $Finding.DefaultValue
+                    $Result = "CeckOverDefaultValue"
                 }
+                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -810,12 +814,13 @@
                         $Result = $ResultOutput.Name
                     }
                     Else {
-                        $Result = $Finding.DefaultValue
+                        $Result = "CeckOverDefaultValue"
                     }
 
                 } catch {
-                    $Result = $Finding.DefaultValue
+                    $Result = "CeckOverDefaultValue"
                 }
+                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -894,8 +899,9 @@
                     $Result = $ResultOutput.State
 
                 } catch {
-                    $Result = $Finding.DefaultValue
+                    $Result = "CeckOverDefaultValue"
                 }
+                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -917,8 +923,9 @@
                     }
 
                 } catch {
-                    $Result = $Finding.DefaultValue
+                    $Result = "CeckOverDefaultValue"
                 }
+                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -947,8 +954,9 @@
                     }
 
                 } catch {
-                    $Result = $Finding.DefaultValue
+                    $Result = "CeckOverDefaultValue"
                 }
+                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -963,8 +971,9 @@
                     $Result = $ResultOutput
 
                 } catch {
-                    $Result = $Finding.DefaultValue
+                    $Result = "CeckOverDefaultValue"
                 }
+                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -981,8 +990,9 @@
                     $Result = $ResultOutput.$ResultArgument
 
                 } catch {
-                    $Result = $Finding.DefaultValue
+                    $Result = "CeckOverDefaultValue"
                 }
+                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -997,7 +1007,7 @@
                     $ResultOutput = Get-MpPreference
                     $ResultAsrIds = $ResultOutput.AttackSurfaceReductionRules_Ids
                     $ResultAsrActions = $ResultOutput.AttackSurfaceReductionRules_Actions
-                    $Result = $Finding.DefaultValue
+                    $Result = "CeckOverDefaultValue"
                     $Counter = 0
 
                     ForEach ($AsrRule in $ResultAsrIds) {
@@ -1010,8 +1020,9 @@
                     }
 
                 } catch {
-                    $Result = $Finding.DefaultValue
+                    $Result = "CeckOverDefaultValue"
                 }
+                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -1043,8 +1054,9 @@
                     $Result = $Result -replace “.$”
 
                 } catch {
-                    $Result = $Finding.DefaultValue
+                    $Result = "CeckOverDefaultValue"
                 }
+                $Result = "CeckOverDefaultValue"
             }            
 
             #
@@ -1065,8 +1077,9 @@
                     $Result = $ResultOutput.$ResultArgument0.$ResultArgument1
 
                 } catch {
-                    $Result = $Finding.DefaultValue
+                    $Result = "CeckOverDefaultValue"
                 }
+                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -1087,8 +1100,9 @@
                     $Result = $ResultOutput.$ResultArgument0.$ResultArgument1
 
                 } catch {
-                    $Result = $Finding.DefaultValue
+                    $Result = "CeckOverDefaultValue"
                 }
+                $Result = "CeckOverDefaultValue"
             }            
 
             #
@@ -1122,12 +1136,13 @@
                     If ($ResultOutput -match ' ([a-z,A-Z]+)') {
                         $Result = $Matches[1]
                     } Else {
-                        $Result = $Finding.DefaultValue
+                        $Result = "CeckOverDefaultValue"
                     }
 
                 } catch {
-                    $Result = $Finding.DefaultValue
+                    $Result = "CeckOverDefaultValue"
                 }
+                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -1142,8 +1157,9 @@
                     $Result = $ResultOutput.Enabled
 
                 } catch {
-                    $Result = $Finding.DefaultValue
+                    $Result = "CeckOverDefaultValue"
                 }
+                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -1158,8 +1174,9 @@
                     $Result = $ResultOutput.StartType
 
                 } catch {
-                    $Result = $Finding.DefaultValue
+                    $Result = "CeckOverDefaultValue"
                 }
+                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -1245,7 +1262,7 @@
                     }
 
                     If ($Report) {
-                        $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","Passed","'+$Result+'"'
+                        $Message = '"'+$Finding.ID+'","'+$Finding.DefaultValue+'","'+$Finding.Name+'","Passed","'+$Result+'"'
                         Add-MessageToFile -Text $Message -File $ReportFile
                     }
 
@@ -1269,7 +1286,7 @@
                     }
 
                     If ($Report) {
-                        $Message = '"'+$Finding.ID+'","'+$Finding.Name+'","'+$Finding.Severity+'","'+$Result+'","'+$Finding.RecommendedValue+'"'
+                        $Message = '"'+$Finding.ID+'","'+$Finding.DefaultValue+'","'+$Finding.Name+'","'+$Finding.Severity+'","'+$Result+'","'+$Finding.RecommendedValue+'"'
                         Add-MessageToFile -Text $Message -File $ReportFile
                     }
 
@@ -1294,7 +1311,7 @@
                     Add-MessageToFile -Text $Message -File $LogFile
                 }
                 If ($Report) {
-                    $Message = '"'+$Finding.ID+'","'+$Finding.Name+'",,"'+$Result+'",'+$Finding.RecommendedValue
+                    $Message = '"'+$Finding.ID+'","'+$Finding.DefaultValue+'","'+$Finding.Name+'",,"'+$Result+'",'+$Finding.RecommendedValue
                     Add-MessageToFile -Text $Message -File $ReportFile
                 }
                 If ($Backup) {
@@ -1911,7 +1928,7 @@
                     $Result = $ResultOutput.Enabled
 
                 } catch {
-                    $Result = $Finding.DefaultValue
+                    $Result = "CeckOverDefaultValue"
                 }
 
                 # Go on if rule not exists
