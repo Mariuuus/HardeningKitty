@@ -1,9 +1,9 @@
 ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Namespace,Property,DefaultValue,RecommendedValue,Operator,Severity
-1.1.1,"Account Policies","Length of password history maintained",accountpolicy,,,,,,,None,24,>=,Low
+1.1.1,"Account Policies","Length of password history maintained",accountpolicy,,,,,,,24,24,>=,Low
 1.1.2,"Account Policies","Maximum password age",accountpolicy,,,,,,,42,60,<=!0,Low
-1.1.3,"Account Policies","Minimum password age",accountpolicy,,,,,,,0,1,>=,Low
-1.1.4,"Account Policies","Minimum password length",accountpolicy,,,,,,,0,14,>=,Medium
-1.1.5,"Account Policies","Password must meet complexity requirements",secedit,"System Access\PasswordComplexity",,,,,,0,1,=,Medium
+1.1.3,"Account Policies","Minimum password age",accountpolicy,,,,,,,1,1,>=,Low
+1.1.4,"Account Policies","Minimum password length",accountpolicy,,,,,,,7,14,>=,Medium
+1.1.5,"Account Policies","Password must meet complexity requirements",secedit,"System Access\PasswordComplexity",,,,,,1,1,=,Medium
 1.1.6,"Account Policies","Relax minimum password length limits",Registry,,HKLM:\System\CurrentControlSet\Control\SAM,RelaxMinimumPasswordLengthLimits,,,,0,1,=,Medium
 1.1.7,"Account Policies","Store passwords using reversible encryption",secedit,"System Access\ClearTextPassword",,,,,,0,0,=,High
 1.2.1,"Account Policies","Account lockout duration",accountpolicy,,,,,,,30,15,>=,Low
@@ -265,7 +265,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 18.2.1,"Administrative Templates: LAPS","LAPS AdmPwd GPO Extension / CSE",Registry,,"HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions\{D76B9641-3288-4f75-942D-087DE603E3EA}",DllName,,,,,"C:\Program Files\LAPS\CSE\AdmPwd.dll",=,Medium
 18.2.2,"Administrative Templates: LAPS","Do not allow password expiration time longer than required by policy",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft Services\AdmPwd",PwdExpirationProtectionEnabled,,,,,1,=,Medium
 18.2.3,"Administrative Templates: LAPS","Enable local admin password management",Registry,,"HKLM:\Software\Policies\Microsoft Services\AdmPwd",AdmPwdEnabled,,,,,1,=,Medium
-18.2.4,"Administrative Templates: LAPS","Password Settings: Password Complexity",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft Services\AdmPwd",PasswordComplexity,,,,,4,=,Medium
+18.2.4,"Administrative Templates: LAPS","Password Settings: Password Complexity",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft Services\AdmPwd",PasswordComplexity,,,,3,3,=,Medium
 18.2.5,"Administrative Templates: LAPS","Password Settings: Password Length",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft Services\AdmPwd",PasswordLength,,,,14,15,>=,Medium
 18.2.6,"Administrative Templates: LAPS","Password Settings: Password Age (Days)",Registry,,"HKLM:\SOFTWARE\Policies\Microsoft Services\AdmPwd",PasswordLength,,,,30,30,<=,Medium
 18.3.1,"MS Security Guide","Apply UAC restrictions to local accounts on network logons",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System,LocalAccountTokenFilterPolicy,,,,1,0,=,Medium
@@ -316,7 +316,7 @@ ID,Category,Name,Method,MethodArgument,RegistryPath,RegistryItem,ClassName,Names
 18.5.23.2.1,"Administrative Templates: Network","WLAN Settings: Allow Windows to automatically connect to suggested open hotspots, to networks shared by contacts, and to hotspots offering paid services",Registry,,HKLM:\Software\Microsoft\wcmsvc\wifinetworkmanager\config,AutoConnectAllowedOEM,,,,1,0,=,Medium
 18.7.1.1,"Administrative Templates: Start Menu and Taskbar","Notifications: Turn off notifications network usage",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\PushNotifications,NoCloudApplicationNotification,,,,0,1,=,Medium
 18.8.3.1,"Administrative Templates: System","Audit Process Creation: Include command line in process creation events",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit,ProcessCreationIncludeCmdLine_Enabled,,,,0,0,=,Medium
-18.8.4.1,"Administrative Templates: System","Credentials Delegation: Encryption Oracle Remediation",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\CredSSP\Parameters,AllowEncryptionOracle,,,,0,0,=,Medium
+18.8.4.1,"Administrative Templates: System","Credentials Delegation: Encryption Oracle Remediation",Registry,,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\CredSSP\Parameters,AllowEncryptionOracle,,,,0,1,=,Medium
 18.8.4.2,"Administrative Templates: System","Credentials Delegation: Remote host allows delegation of non-exportable credentials",Registry,,HKLM:\Software\Policies\Microsoft\Windows\CredentialsDelegation,AllowProtectedCreds,,,,0,1,=,Medium
 18.8.5.1,"Administrative Templates: System","Device Guard: Turn On Virtualization Based Security (Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard,EnableVirtualizationBasedSecurity,,,,0,1,=,Medium
 18.8.5.2,"Administrative Templates: System","Device Guard: Select Platform Security Level (Policy)",Registry,,HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard,RequirePlatformSecurityFeatures,,,,0,3,=,Medium
