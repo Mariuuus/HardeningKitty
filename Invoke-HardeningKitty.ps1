@@ -491,11 +491,12 @@
     #
     # Start Main
     #
-    $HardeningKittyVersion = "0.6.1-1624286989"
+    $HardeningKittyVersion = "0.6.1-1629520511"
 
     #
     # Log, report and backup file
     #
+    $NumberOfLine = 0
     $Hostname = $env:COMPUTERNAME.ToLower()
     $FileDate = Get-Date -Format yyyyMMdd-HHmmss
     $ListName = [System.IO.Path]::GetFileNameWithoutExtension($FileFindingList)
@@ -507,7 +508,7 @@
         $ReportFile = "hardeningkitty_report_"+$Hostname+"_"+$ListName+"-$FileDate.csv"
     }
     If ($Report.IsPresent) {
-        $Message = '"ID","DefaultValue","Name","Severity","Result","Recommended"'
+        $Message = '"Number","ID","Category","Subcategory","Name","Severity","Result","DefaultValue","Operator","Recommended","OMP"'
         Add-MessageToFile -Text $Message -File $ReportFile
     }
     If ($Backup.IsPresent -and $BackupFile.Length -eq 0) {
@@ -602,6 +603,7 @@
             # Reset
             #
             $Result = ""
+            $NumberOfLine++
             
             #
             # Category
@@ -626,12 +628,11 @@
                     try {
                         $Result = Get-ItemPropertyValue -Path $Finding.RegistryPath -Name $Finding.RegistryItem
                     } catch {
-                        $Result = "CeckOverDefaultValue"
+                        $Result = "No value set - Default value:" + $Finding.DefaultValue
                     }
                 } Else {
-                    $Result = "CeckOverDefaultValue"
+                    $Result = "No value set - Default value:" + $Finding.DefaultValue
                 }
-                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -702,12 +703,11 @@
                         }
 
                     } catch {
-                        $Result = "CeckOverDefaultValue"
+                        $Result = "No value set - Default value:" + $Finding.DefaultValue
                     }
                 } Else {
-                    $Result = "CeckOverDefaultValue"
+                    $Result = "No value set - Default value:" + $Finding.DefaultValue
                 }
-                $Result = "CeckOverDefaultValue"
             }
             
             #
@@ -745,9 +745,8 @@
                     $Result = $Matches[2]
 
                 } catch {
-                    $Result = "CeckOverDefaultValue"
+                    $Result = "No value set - Default value:" + $Finding.DefaultValue
                 }
-                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -785,9 +784,8 @@
                     }
 
                 } catch {
-                    $Result = "CeckOverDefaultValue"
+                    $Result = "No value set - Default value:" + $Finding.DefaultValue
                 }
-                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -814,13 +812,12 @@
                         $Result = $ResultOutput.Name
                     }
                     Else {
-                        $Result = "CeckOverDefaultValue"
+                        $Result = "No value set - Default value:" + $Finding.DefaultValue
                     }
 
                 } catch {
-                    $Result = "CeckOverDefaultValue"
+                    $Result = "No value set - Default value:" + $Finding.DefaultValue
                 }
-                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -899,9 +896,8 @@
                     $Result = $ResultOutput.State
 
                 } catch {
-                    $Result = "CeckOverDefaultValue"
+                    $Result = "No value set - Default value:" + $Finding.DefaultValue
                 }
-                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -923,9 +919,8 @@
                     }
 
                 } catch {
-                    $Result = "CeckOverDefaultValue"
+                    $Result = "No value set - Default value:" + $Finding.DefaultValue
                 }
-                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -954,9 +949,8 @@
                     }
 
                 } catch {
-                    $Result = "CeckOverDefaultValue"
+                    $Result = "No value set - Default value:" + $Finding.DefaultValue
                 }
-                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -971,9 +965,8 @@
                     $Result = $ResultOutput
 
                 } catch {
-                    $Result = "CeckOverDefaultValue"
+                    $Result = "No value set - Default value:" + $Finding.DefaultValue
                 }
-                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -990,9 +983,8 @@
                     $Result = $ResultOutput.$ResultArgument
 
                 } catch {
-                    $Result = "CeckOverDefaultValue"
+                    $Result = "No value set - Default value:" + $Finding.DefaultValue
                 }
-                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -1007,7 +999,7 @@
                     $ResultOutput = Get-MpPreference
                     $ResultAsrIds = $ResultOutput.AttackSurfaceReductionRules_Ids
                     $ResultAsrActions = $ResultOutput.AttackSurfaceReductionRules_Actions
-                    $Result = "CeckOverDefaultValue"
+                    $Result = "No value set - Default value:" + $Finding.DefaultValue
                     $Counter = 0
 
                     ForEach ($AsrRule in $ResultAsrIds) {
@@ -1020,9 +1012,8 @@
                     }
 
                 } catch {
-                    $Result = "CeckOverDefaultValue"
+                    $Result = "No value set - Default value:" + $Finding.DefaultValue
                 }
-                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -1054,9 +1045,8 @@
                     $Result = $Result -replace “.$”
 
                 } catch {
-                    $Result = "CeckOverDefaultValue"
+                    $Result = "No value set - Default value:" + $Finding.DefaultValue
                 }
-                $Result = "CeckOverDefaultValue"
             }            
 
             #
@@ -1077,9 +1067,8 @@
                     $Result = $ResultOutput.$ResultArgument0.$ResultArgument1
 
                 } catch {
-                    $Result = "CeckOverDefaultValue"
+                    $Result = "No value set - Default value:" + $Finding.DefaultValue
                 }
-                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -1100,9 +1089,8 @@
                     $Result = $ResultOutput.$ResultArgument0.$ResultArgument1
 
                 } catch {
-                    $Result = "CeckOverDefaultValue"
+                    $Result = "No value set - Default value:" + $Finding.DefaultValue
                 }
-                $Result = "CeckOverDefaultValue"
             }            
 
             #
@@ -1136,13 +1124,12 @@
                     If ($ResultOutput -match ' ([a-z,A-Z]+)') {
                         $Result = $Matches[1]
                     } Else {
-                        $Result = "CeckOverDefaultValue"
+                        $Result = "No value set - Default value:" + $Finding.DefaultValue
                     }
 
                 } catch {
-                    $Result = "CeckOverDefaultValue"
+                    $Result = "No value set - Default value:" + $Finding.DefaultValue
                 }
-                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -1157,9 +1144,8 @@
                     $Result = $ResultOutput.Enabled
 
                 } catch {
-                    $Result = "CeckOverDefaultValue"
+                    $Result = "No value set - Default value:" + $Finding.DefaultValue
                 }
-                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -1174,9 +1160,8 @@
                     $Result = $ResultOutput.StartType
 
                 } catch {
-                    $Result = "CeckOverDefaultValue"
+                    $Result = "No value set - Default value:" + $Finding.DefaultValue
                 }
-                $Result = "CeckOverDefaultValue"
             }
 
             #
@@ -1262,7 +1247,7 @@
                     }
 
                     If ($Report) {
-                        $Message = '"'+$Finding.ID+'","'+$Finding.DefaultValue+'","'+$Finding.Name+'","Passed","'+$Result+'"'
+                        $Message = '"'+$NumberOfLine+'","'+$Finding.ID+'","'+$Finding.Category+'","'+$Finding.Subcategory+'","'+$Finding.Name+'","Passed","'+$Result+'","'+$Finding.DefaultValue+'","'+$Finding.Operator+'","'+$Finding.RecommendedValue+'","'+$Finding.OMP+'"'
                         Add-MessageToFile -Text $Message -File $ReportFile
                     }
 
@@ -1286,7 +1271,7 @@
                     }
 
                     If ($Report) {
-                        $Message = '"'+$Finding.ID+'","'+$Finding.DefaultValue+'","'+$Finding.Name+'","'+$Finding.Severity+'","'+$Result+'","'+$Finding.RecommendedValue+'"'
+                        $Message = '"'+$NumberOfLine+'","'+$Finding.ID+'","'+$Finding.Category+'","'+$Finding.Subcategory+'","'+$Finding.Name+'","'+$Finding.Severity+'","'+$Result+'","'+$Finding.DefaultValue+'","'+$Finding.Operator+'","'+$Finding.RecommendedValue+'","'+$Finding.OMP+'"'
                         Add-MessageToFile -Text $Message -File $ReportFile
                     }
 
@@ -1311,7 +1296,7 @@
                     Add-MessageToFile -Text $Message -File $LogFile
                 }
                 If ($Report) {
-                    $Message = '"'+$Finding.ID+'","'+$Finding.DefaultValue+'","'+$Finding.Name+'",,"'+$Result+'",'+$Finding.RecommendedValue
+                    $Message = '"'+$NumberOfLine+'","'+$Finding.ID+'","'+$Finding.Category+'","'+$Finding.Subcategory+'","'+$Finding.Name+'",,"'+$Result+'","'+$Finding.DefaultValue+'","'+$Finding.Operator+'","'+$Finding.RecommendedValue+'","'+$Finding.OMP+'"'
                     Add-MessageToFile -Text $Message -File $ReportFile
                 }
                 If ($Backup) {
@@ -1387,29 +1372,24 @@
                 if($Finding.RecommendedValue -eq "") {
                     (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = " | Out-File $TempFileName
                 } else {
-                    # Check if SID actually exists on the system
+                    $ListTranslated = @()
                     $List = $Finding.RecommendedValue -split ';'| Where-Object {
-                        if($_ -like 'S-*') {
-                            try {
-                                $sid = new-object System.Security.Principal.SecurityIdentifier($_)
-                                return [bool]$_.Translate([System.Security.Principal.NTAccount])
-                            } catch {
-                                return $false
-                            }
-                        } else {
-                            return $true;
-                        }
+                        # Get SID to translate the account name
+                        $AccountSid = Translate-SidFromWellkownAccount -AccountName $_
+                        # Get account name from system with SID (local translation)
+                        $AccountName = Get-AccountFromSid -AccountSid $AccountSid
+                        $ListTranslated += $AccountName
                      }
 
                      # If User Right Assignment exists, replace values
                      If ( ((Get-Content -Encoding unicode $TempFileName) | Select-String $($Finding.MethodArgument)).Count -gt 0 ) {
-                        (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = $($List -join ',')" | Out-File $TempFileName
+                        (Get-Content -Encoding unicode $TempFileName) -replace "$($Finding.MethodArgument).*", "$($Finding.MethodArgument) = $($ListTranslated -join ',')" | Out-File $TempFileName
                      }
                      # If it does not exist, add a new entry into the file at the right position
                      Else {
                         $TempFileContent = Get-Content -Encoding unicode $TempFileName
                         $LineNumber = $TempFileContent.Count
-                        $TempFileContent[$LineNumber-3] = "$($Finding.MethodArgument) = $($List -join ',')"
+                        $TempFileContent[$LineNumber-3] = "$($Finding.MethodArgument) = $($ListTranslated -join ',')"
                         $TempFileContent[$LineNumber-2] = "[Version]"
                         $TempFileContent[$LineNumber-1] = 'signature="$CHICAGO$"'
                         $TempFileContent += "Revision=1"
@@ -1691,7 +1671,7 @@
                 # Basically this is true, but there is an exception for the finding "MitigationOptions_FontBocking",
                 # the value "10000000000" is written to the registry as a string
                 #
-                If ($Finding.RegistryItem -eq "MitigationOptions_FontBocking") {
+                If ($Finding.RegistryItem -eq "MitigationOptions_FontBocking" -Or $Finding.RegistryItem -eq "Retention") {
                     $RegType = "String"
                 } ElseIf ($Finding.RecommendedValue -match "^\d+$") {
                     $RegType = "DWord"                    
@@ -1928,7 +1908,7 @@
                     $Result = $ResultOutput.Enabled
 
                 } catch {
-                    $Result = "CeckOverDefaultValue"
+                    $Result = $Finding.DefaultValue
                 }
 
                 # Go on if rule not exists
@@ -2066,3 +2046,86 @@
     }
     Write-Output "`n"
 }
+
+# SIG # Begin signature block
+# MIIO6AYJKoZIhvcNAQcCoIIO2TCCDtUCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
+# gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU/FLP+X9ZMZeRHMvbShTR4rqN
+# 71mgggwKMIIF4DCCBMigAwIBAgIQeO1YDfU4t32dWmgwBkYSEDANBgkqhkiG9w0B
+# AQsFADCBkTELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3Rl
+# cjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQx
+# NzA1BgNVBAMTLkNPTU9ETyBSU0EgRXh0ZW5kZWQgVmFsaWRhdGlvbiBDb2RlIFNp
+# Z25pbmcgQ0EwHhcNMjAwODA3MDAwMDAwWhcNMjMwODA3MjM1OTU5WjCBzzEYMBYG
+# A1UEBRMPQ0hFLTEwOS44MDQuMzgyMRMwEQYLKwYBBAGCNzwCAQMTAkNIMR0wGwYD
+# VQQPExRQcml2YXRlIE9yZ2FuaXphdGlvbjELMAkGA1UEBhMCQ0gxDTALBgNVBBEM
+# BDgwNDgxEDAOBgNVBAgMB1rDvHJpY2gxEDAOBgNVBAcMB1rDvHJpY2gxGzAZBgNV
+# BAkMEkJhZGVuZXJzdHJhc3NlIDYyMzEQMA4GA1UECgwHU2NpcCBBRzEQMA4GA1UE
+# AwwHU2NpcCBBRzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAIvjKOZT
+# ryv6pmIKN6ep8UVCcm+a5wTAt27yUUh4JyZhQjhMRk1SJZy5lLXimBQhmNlWAOWL
+# yz5Gyecx3wBbaRYKQHIVH0LDBLDL2WU803JfTUi7TbsZCatq57oI/TAVoDClragI
+# 0aPK/kbhREN1UN/mBKY3MLQmtJONeQawsEhLI1kwU+xmcllWu/VvO9Ld/K7rEvBi
+# Pl+MR2vjc/Ns0h/gAizGxo6BlzD22XwyQWxPL8NTpTWSX+ZKrgh3AT+5iN/Q3mRV
+# ewNR06W7TaKknwI8+wNrz2h/wNDAAO5BZmJ9aMvbJiJMF6IRx8907SoC2W+an0sX
+# apQ12yFH6lCOm0MCAwEAAaOCAfIwggHuMB8GA1UdIwQYMBaAFN+P8yAM6cqmBNhb
+# WDcqPatG3INJMB0GA1UdDgQWBBTRzSa1SEaHkraxCoNENvT8MuEWHTAOBgNVHQ8B
+# Af8EBAMCB4AwDAYDVR0TAQH/BAIwADATBgNVHSUEDDAKBggrBgEFBQcDAzARBglg
+# hkgBhvhCAQEEBAMCBBAwSQYDVR0gBEIwQDA1BgwrBgEEAbIxAQIBBgEwJTAjBggr
+# BgEFBQcCARYXaHR0cHM6Ly9zZWN0aWdvLmNvbS9DUFMwBwYFZ4EMAQMwVQYDVR0f
+# BE4wTDBKoEigRoZEaHR0cDovL2NybC5jb21vZG9jYS5jb20vQ09NT0RPUlNBRXh0
+# ZW5kZWRWYWxpZGF0aW9uQ29kZVNpZ25pbmdDQS5jcmwwgYYGCCsGAQUFBwEBBHow
+# eDBQBggrBgEFBQcwAoZEaHR0cDovL2NydC5jb21vZG9jYS5jb20vQ09NT0RPUlNB
+# RXh0ZW5kZWRWYWxpZGF0aW9uQ29kZVNpZ25pbmdDQS5jcnQwJAYIKwYBBQUHMAGG
+# GGh0dHA6Ly9vY3NwLmNvbW9kb2NhLmNvbTA7BgNVHREENDAyoCIGCCsGAQUFBwgD
+# oBYwFAwSQ0gtQ0hFLTEwOS44MDQuMzgygQxpbmZvQHNjaXAuY2gwDQYJKoZIhvcN
+# AQELBQADggEBACT7DLCxFVqNzRaCA/6PeNy1jJrCiCLLJsRM9Da7pkp7IJsVeKTC
+# 4pF3YaiWf9/ZFwuBKorzoXZwH+P2EHi4fqjOlwBOxonnM6JxuMts5llladNiacoB
+# dTiYe7xrkM/31vRauAuIj8zBNiNqfllmA3UJMHDObix9OAIbtDjZPli0IpAPDKKb
+# pPTgoTjgyc33dVtF7rMZMPok/2iHsXJVzKBuYfwktZXTIQVKvHuwkG4+Vdw40/c9
+# eBpPRpDvjrtXjoVcDy5eEYo4j2rxSkmfvOgLcoLBtjuqWw44+AAdfoCgNa2kfJ1j
+# Xb7NDzGQS1hgiUuTOiTYtvKbUOuJoFXxDW8wggYiMIIECqADAgECAhBt1HLrAq4E
+# BuPdhD9f4UXhMA0GCSqGSIb3DQEBDAUAMIGFMQswCQYDVQQGEwJHQjEbMBkGA1UE
+# CBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRowGAYDVQQK
+# ExFDT01PRE8gQ0EgTGltaXRlZDErMCkGA1UEAxMiQ09NT0RPIFJTQSBDZXJ0aWZp
+# Y2F0aW9uIEF1dGhvcml0eTAeFw0xNDEyMDMwMDAwMDBaFw0yOTEyMDIyMzU5NTla
+# MIGRMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAw
+# DgYDVQQHEwdTYWxmb3JkMRowGAYDVQQKExFDT01PRE8gQ0EgTGltaXRlZDE3MDUG
+# A1UEAxMuQ09NT0RPIFJTQSBFeHRlbmRlZCBWYWxpZGF0aW9uIENvZGUgU2lnbmlu
+# ZyBDQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAIr9vUPwPchVH/NZ
+# ivBatNyT0WQVSoqEpS3LJvjgRTijuQHFTxMIWdAxVMrNkGGjPizyTRVc1O7DaiKX
+# SNEGQzQJmcnPMMSfRP1WnO7M54O5gc3I2gscEkj/b6LsxHXLCXDPUeW7i5+qvXgG
+# fZXWYYH22lPHrJ2zALoe1L5AYgmZgz1F3U1llQTM/PrHW3riLgw9VTVXNUiJifK5
+# VqVLUBsc3piQvfMu3Iip8XWbqD6iBdlBte93rRfAWvWj202f0cSxe4O17hCUKy5y
+# rr7vlSmcUmLFLG0i931EehBfY5NpTdl9spqxTrVZv/+F+72s7OErpuMsLOjZbttf
+# TRd4y1MCAwEAAaOCAX4wggF6MB8GA1UdIwQYMBaAFLuvfgI9+qbxPISOre44mOzZ
+# MjLUMB0GA1UdDgQWBBTfj/MgDOnKpgTYW1g3Kj2rRtyDSTAOBgNVHQ8BAf8EBAMC
+# AYYwEgYDVR0TAQH/BAgwBgEB/wIBADATBgNVHSUEDDAKBggrBgEFBQcDAzA+BgNV
+# HSAENzA1MDMGBFUdIAAwKzApBggrBgEFBQcCARYdaHR0cHM6Ly9zZWN1cmUuY29t
+# b2RvLmNvbS9DUFMwTAYDVR0fBEUwQzBBoD+gPYY7aHR0cDovL2NybC5jb21vZG9j
+# YS5jb20vQ09NT0RPUlNBQ2VydGlmaWNhdGlvbkF1dGhvcml0eS5jcmwwcQYIKwYB
+# BQUHAQEEZTBjMDsGCCsGAQUFBzAChi9odHRwOi8vY3J0LmNvbW9kb2NhLmNvbS9D
+# T01PRE9SU0FBZGRUcnVzdENBLmNydDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Au
+# Y29tb2RvY2EuY29tMA0GCSqGSIb3DQEBDAUAA4ICAQBmTuy3FndvEegbXWpO2fKL
+# bLFWKECLwDHEmUgjPfgO6ICX720gCx8TxIb7FzQV4Y5U98K4AHMV4CjZ2rr6glTC
+# 9+u/wzbQMJ/loRyU3+986PYseKKszyZqFaEVMdYxNJi9U0/EhIOjxJZcPdj+1vlU
+# /2eTbfg+K2ssogh8VkiBMhiybqyQwdvk3jmLhuXHGEBZpN+WR7qyf7H4Vw+FgHQ4
+# DjpYYh7+UuPmrlMJhv6Pm9tWVswHsInBBPFTC2xvd+yyH+z2W0BDYA8bqxhUtBAE
+# jvgO6cuDsXryNE5qVEzpgyrpsDAlHM5ijg7rheYp/rFK4/KuPJH1TKG+yBcOXLtC
+# TeMaipLNPiB+3el1seofdFyeVMKUN7Jh3QcWWX+WgBbgmbXSbrDJIwYVrNEj9DOL
+# znXwwYbT/+Eu+pBP/kb5u9tPu7f+0Q0rBPHS0ZWFLIouuIVW8sOEUqHpM7HrUMih
+# sJ/jw4s6h57nVdPTbTQXMA1oIgvVue1zNXLD7ac3zeNDrkXNNL8oyodi7UOkr/rL
+# McshWGFGXrbGeqYeUyqo+FxRHzpaEA8owOR0i3TGBKr4SyYoCjKJ250qYHFqw5ZO
+# Frljv2GVZ4xLLruwToPpTTHljici9Twme0SR09Ra8NN89Di+FJqZDouxW+rkiw8R
+# nXdCghxcOtTaq4gvjVcwVDGCAkgwggJEAgEBMIGmMIGRMQswCQYDVQQGEwJHQjEb
+# MBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRow
+# GAYDVQQKExFDT01PRE8gQ0EgTGltaXRlZDE3MDUGA1UEAxMuQ09NT0RPIFJTQSBF
+# eHRlbmRlZCBWYWxpZGF0aW9uIENvZGUgU2lnbmluZyBDQQIQeO1YDfU4t32dWmgw
+# BkYSEDAJBgUrDgMCGgUAoHgwGAYKKwYBBAGCNwIBDDEKMAigAoAAoQKAADAZBgkq
+# hkiG9w0BCQMxDAYKKwYBBAGCNwIBBDAcBgorBgEEAYI3AgELMQ4wDAYKKwYBBAGC
+# NwIBFTAjBgkqhkiG9w0BCQQxFgQUsHavTQ/XQCKyvfdLsOITTQaqH4UwDQYJKoZI
+# hvcNAQEBBQAEggEAd90Id5kd77go9xvmcj7mOCFSVkpFOijUyp4Tfh4zQfbj7Lg0
+# yoyB28bdOKAvzS/C75tIuucDpwl1uKo366YGtBWoJJTn90BUIByFomyCDXpDBii8
+# 1q1KPsRJuLNsmtjqw2oV65/9Hy1ITQxobvL9Vr9Faa6vBS1bp6ji5OlwhVMU+DJA
+# lvjjxyDKUae7pGA7HRAtTBFdd2Rl8T5LvAPKLBgEkM5EVUO1EHWtMzHxdaTPIgp8
+# Mp/8en0KcY2R9n3tyVMy5mRZQ62hjR/QC4BGK5Tp05G1qoj+3IS5ww6vJjY/+XOr
+# LbY76IxnMeveLGhR552kuzgM4tDTT5sHvrASGg==
+# SIG # End signature block
