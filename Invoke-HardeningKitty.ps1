@@ -628,10 +628,10 @@
                     try {
                         $Result = Get-ItemPropertyValue -Path $Finding.RegistryPath -Name $Finding.RegistryItem
                     } catch {
-                        $Result = "No value set - Default value:" + $Finding.DefaultValue
+                        $Result = "No value set - Default value: " + $Finding.DefaultValue
                     }
                 } Else {
-                    $Result = "No value set - Default value:" + $Finding.DefaultValue
+                    $Result = "No value set - Default value: " + $Finding.DefaultValue
                 }
             }
 
@@ -703,10 +703,10 @@
                         }
 
                     } catch {
-                        $Result = "No value set - Default value:" + $Finding.DefaultValue
+                        $Result = "No value set - Default value: " + $Finding.DefaultValue
                     }
                 } Else {
-                    $Result = "No value set - Default value:" + $Finding.DefaultValue
+                    $Result = "No value set - Default value: " + $Finding.DefaultValue
                 }
             }
             
@@ -745,7 +745,7 @@
                     $Result = $Matches[2]
 
                 } catch {
-                    $Result = "No value set - Default value:" + $Finding.DefaultValue
+                    $Result = "No value set - Default value: " + $Finding.DefaultValue
                 }
             }
 
@@ -784,7 +784,7 @@
                     }
 
                 } catch {
-                    $Result = "No value set - Default value:" + $Finding.DefaultValue
+                    $Result = "No value set - Default value: " + $Finding.DefaultValue
                 }
             }
 
@@ -812,11 +812,11 @@
                         $Result = $ResultOutput.Name
                     }
                     Else {
-                        $Result = "No value set - Default value:" + $Finding.DefaultValue
+                        $Result = "No value set - Default value: " + $Finding.DefaultValue
                     }
 
                 } catch {
-                    $Result = "No value set - Default value:" + $Finding.DefaultValue
+                    $Result = "No value set - Default value: " + $Finding.DefaultValue
                 }
             }
 
@@ -896,7 +896,7 @@
                     $Result = $ResultOutput.State
 
                 } catch {
-                    $Result = "No value set - Default value:" + $Finding.DefaultValue
+                    $Result = "No value set - Default value: " + $Finding.DefaultValue
                 }
             }
 
@@ -919,7 +919,7 @@
                     }
 
                 } catch {
-                    $Result = "No value set - Default value:" + $Finding.DefaultValue
+                    $Result = "No value set - Default value: " + $Finding.DefaultValue
                 }
             }
 
@@ -949,7 +949,7 @@
                     }
 
                 } catch {
-                    $Result = "No value set - Default value:" + $Finding.DefaultValue
+                    $Result = "No value set - Default value: " + $Finding.DefaultValue
                 }
             }
 
@@ -965,7 +965,7 @@
                     $Result = $ResultOutput
 
                 } catch {
-                    $Result = "No value set - Default value:" + $Finding.DefaultValue
+                    $Result = "No value set - Default value: " + $Finding.DefaultValue
                 }
             }
 
@@ -983,7 +983,7 @@
                     $Result = $ResultOutput.$ResultArgument
 
                 } catch {
-                    $Result = "No value set - Default value:" + $Finding.DefaultValue
+                    $Result = "No value set - Default value: " + $Finding.DefaultValue
                 }
             }
 
@@ -999,7 +999,7 @@
                     $ResultOutput = Get-MpPreference
                     $ResultAsrIds = $ResultOutput.AttackSurfaceReductionRules_Ids
                     $ResultAsrActions = $ResultOutput.AttackSurfaceReductionRules_Actions
-                    $Result = "No value set - Default value:" + $Finding.DefaultValue
+                    $Result = "No value set - Default value: " + $Finding.DefaultValue
                     $Counter = 0
 
                     ForEach ($AsrRule in $ResultAsrIds) {
@@ -1012,7 +1012,7 @@
                     }
 
                 } catch {
-                    $Result = "No value set - Default value:" + $Finding.DefaultValue
+                    $Result = "No value set - Default value: " + $Finding.DefaultValue
                 }
             }
 
@@ -1045,7 +1045,7 @@
                     $Result = $Result -replace “.$”
 
                 } catch {
-                    $Result = "No value set - Default value:" + $Finding.DefaultValue
+                    $Result = "No value set - Default value: " + $Finding.DefaultValue
                 }
             }            
 
@@ -1067,7 +1067,7 @@
                     $Result = $ResultOutput.$ResultArgument0.$ResultArgument1
 
                 } catch {
-                    $Result = "No value set - Default value:" + $Finding.DefaultValue
+                    $Result = "No value set - Default value: " + $Finding.DefaultValue
                 }
             }
 
@@ -1089,7 +1089,7 @@
                     $Result = $ResultOutput.$ResultArgument0.$ResultArgument1
 
                 } catch {
-                    $Result = "No value set - Default value:" + $Finding.DefaultValue
+                    $Result = "No value set - Default value: " + $Finding.DefaultValue
                 }
             }            
 
@@ -1124,11 +1124,11 @@
                     If ($ResultOutput -match ' ([a-z,A-Z]+)') {
                         $Result = $Matches[1]
                     } Else {
-                        $Result = "No value set - Default value:" + $Finding.DefaultValue
+                        $Result = "No value set - Default value: " + $Finding.DefaultValue
                     }
 
                 } catch {
-                    $Result = "No value set - Default value:" + $Finding.DefaultValue
+                    $Result = "No value set - Default value: " + $Finding.DefaultValue
                 }
             }
 
@@ -1144,7 +1144,7 @@
                     $Result = $ResultOutput.Enabled
 
                 } catch {
-                    $Result = "No value set - Default value:" + $Finding.DefaultValue
+                    $Result = "No value set - Default value: " + $Finding.DefaultValue
                 }
             }
 
@@ -1160,7 +1160,7 @@
                     $Result = $ResultOutput.StartType
 
                 } catch {
-                    $Result = "No value set - Default value:" + $Finding.DefaultValue
+                    $Result = "No value set - Default value: " + $Finding.DefaultValue
                 }
             }
 
