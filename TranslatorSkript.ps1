@@ -41,17 +41,16 @@ foreach ($Translation in $TranslateTxt) {
         {
             $tempValue = $_.DefaultValue
             $_.DefaultValue = $_.DefaultValue -replace $Translation.Keyword,$Translation.GermanWord
-            Write-Host $number "~~" $_.ID "~~ DefaultValue: " $tempValue "=>" $_.DefaultValue
+            Write-Host $number "~~" $_.ID "~"$Translation.Keyword"=>"$Translation.GermanWord"~" "DefaultValue: " $tempValue "=>" $_.DefaultValue
             $number++
         }
     }
-    "Pause"
     $ToBeTranslatedList | ForEach-Object{
         if($_.RecommendedValue.contains($Translation.Keyword))
         {
             $tempValue = $_.RecommendedValue
             $_.RecommendedValue = $_.RecommendedValue -replace $Translation.Keyword,$Translation.GermanWord
-            Write-Host $number "~~" $_.ID "~~ Recommended Value: " $tempValue "=>" $_.DefaultValue
+            Write-Host $number "~~" $_.ID "~"$Translation.Keyword"=>"$Translation.GermanWord"~" "RecommendedValue: " $tempValue "=>" $_.RecommendedValue
             $number++
         }
     }
