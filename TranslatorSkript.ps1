@@ -33,10 +33,28 @@ $ToBeTranslatedList = Import-Csv -Path $ToBeTranslatedListPath -Delimiter ","
 #Find and Translate the Skript
 #And export new csv
 
-foreach ($Translation in $TranslateTxt) {
+$number = 1
 
-    $ToBeTranslatedList | ForEach-Object{$_.DefaultValue = $_.DefaultValue -replace $Translation.Keyword,$Translation.GermanWord}
-    $ToBeTranslatedList | ForEach-Object{$_.RecommendedValue = $_.RecommendedValue -replace $Translation.Keyword,$Translation.GermanWord}
+foreach ($Translation in $TranslateTxt) {
+    $ToBeTranslatedList | ForEach-Object{
+        if($_.DefaultValue.contains($Translation.Keyword))
+        {
+            $tempValue = $_.DefaultValue
+            $_.DefaultValue = $_.DefaultValue -replace $Translation.Keyword,$Translation.GermanWord
+            Write-Host $number "~~" $_.ID "~~ DefaultValue: " $tempValue "=>" $_.DefaultValue
+            $number++
+        }
+    }
+    "Pause"
+    $ToBeTranslatedList | ForEach-Object{
+        if($_.RecommendedValue.contains($Translation.Keyword))
+        {
+            $tempValue = $_.RecommendedValue
+            $_.RecommendedValue = $_.RecommendedValue -replace $Translation.Keyword,$Translation.GermanWord
+            Write-Host $number "~~" $_.ID "~~ Recommended Value: " $tempValue "=>" $_.DefaultValue
+            $number++
+        }
+    }
 
 }
 
