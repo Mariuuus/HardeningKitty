@@ -41,7 +41,7 @@ foreach ($Translation in $TranslateTxt) {
         {
             $tempValue = $_.DefaultValue
             $_.DefaultValue = $_.DefaultValue -replace $Translation.Keyword,$Translation.GermanWord
-            Write-Host $number "~~" $_.ID "~"$Translation.Keyword"=>"$Translation.GermanWord"~" "DefaultValue: " $tempValue "=>" $_.DefaultValue
+            Write-Host $number "~~" $_.ID "~~ DefaultValue: " $tempValue "=>" $_.DefaultValue
             $number++
         }
     }
@@ -50,11 +50,11 @@ foreach ($Translation in $TranslateTxt) {
         {
             $tempValue = $_.RecommendedValue
             $_.RecommendedValue = $_.RecommendedValue -replace $Translation.Keyword,$Translation.GermanWord
-            Write-Host $number "~~" $_.ID "~"$Translation.Keyword"=>"$Translation.GermanWord"~" "RecommendedValue: " $tempValue "=>" $_.RecommendedValue
+            Write-Host $number "~~" $_.ID "~~ Recommended Value: " $tempValue "=>" $_.RecommendedValue
             $number++
         }
     }
 
 }
 
-$ToBeTranslatedList | export-csv $ExportCSVPath -Delimiter "," -Encoding UTF8 -NoType 
+$ToBeTranslatedList | export-csv $ExportCSVPath -Delimiter "," -Encoding UTF8 -NoType

@@ -1,0 +1,25 @@
+Keyword;GermanWord
+NT AUTHORITY;NT-AUTORITÄT
+NT AUTHORITY\NETWORK SERVICE;NT-AUTORITÄT\Netzwerkdienst
+NT AUTHORITY\LOCAL SERVICE;NT-AUTORITÄT\Lokaler Dienst
+NT AUTHORITY\SERVICE;NT-AUTORITÄT\DIENST
+NT AUTHORITY\Local account;NT-AUTORITÄT\
+BUILTIN;VORDEFINIERT
+BUILTIN\Backup Operators;VORDEFINIERT\Sicherungs-Operatoren
+BUILTIN\Users;VORDEFINIERT\Benutzer
+BUILTIN\Administrators;VORDEFINIERT\Administratoren
+BUILTIN\Remote Desktop Users;VORDEFINIERT\Remotedesktopbenutzer
+BUILTIN\Device Owners;VORDEFINIERT\
+BUILTIN\Guests;VORDEFINIERT\
+BUILTIN\Performance Log Users;VORDEFINIERT\Leistungsprotokollbenutzer
+None;Keine
+Never;Nie
+Success and Failure;Erfolg und Fehler
+Success;Erfolg
+No Auditing;Keine Überwachung
+Everyone;Jeder
+"Administrators;Everyone";"Administratoren;Jeder"
+Authenticated Users;Authentifizierte Benutzer
+SERVICE;DIENST
+ENTERPRISE DOMAIN CONTROLLERS;Enterprise Domänencontroller
+Performance Log Users;Leistungsprotokollbenutzer
