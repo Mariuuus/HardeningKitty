@@ -125,6 +125,10 @@
         [Switch]
         $Backup = $false,
 
+        # Define the use of English or German CSV
+        # [Switch]
+        # $EnglishCSV = $false,
+
         # Define name and path of the report file
         [String]
         $BackupFile
