@@ -40,8 +40,8 @@ foreach ($Translation in $TranslateTxt) {
         if($_.DefaultValue.contains($Translation.Keyword))
         {
             $tempValue = $_.DefaultValue
-            $_.DefaultValue = $_.DefaultValue -replace $Translation.Keyword,$Translation.GermanWord
-            Write-Host $number "~~" $_.ID "~~ DefaultValue: " $tempValue "=>" $_.DefaultValue
+            $_.DefaultValue = $_.DefaultValue -replace [regex]::escape($Translation.Keyword),$Translation.GermanWord
+            Write-Host $number "~" $Translation.Keyword "~" $_.ID "~~ DefaultValue: " $tempValue "=>" $_.DefaultValue
             $number++
         }
     }
@@ -49,8 +49,8 @@ foreach ($Translation in $TranslateTxt) {
         if($_.RecommendedValue.contains($Translation.Keyword))
         {
             $tempValue = $_.RecommendedValue
-            $_.RecommendedValue = $_.RecommendedValue -replace $Translation.Keyword,$Translation.GermanWord
-            Write-Host $number "~~" $_.ID "~~ Recommended Value: " $tempValue "=>" $_.RecommendedValue
+            $_.RecommendedValue = $_.RecommendedValue -replace [regex]::escape($Translation.Keyword),$Translation.GermanWord
+            Write-Host $number "~" $Translation.Keyword "~" $_.ID "~~ Recommended Value: " $tempValue "=>" $_.RecommendedValue
             $number++
         }
     }
