@@ -608,6 +608,7 @@
             #
             $Result = ""
             $NumberOfLine++
+            [bool] $DefaultValueUse = $false
             
             #
             # Category
@@ -632,10 +633,12 @@
                     try {
                         $Result = Get-ItemPropertyValue -Path $Finding.RegistryPath -Name $Finding.RegistryItem
                     } catch {
-                        $Result = "No value set - Default value: " + $Finding.DefaultValue
+                        $Result = $Finding.DefaultValue
+                        $DefaultValueUse = true
                     }
                 } Else {
-                    $Result = "No value set - Default value: " + $Finding.DefaultValue
+                    $Result = $Finding.DefaultValue
+                    $DefaultValueUse = true
                 }
             }
 
