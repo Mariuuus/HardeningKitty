@@ -608,7 +608,7 @@
             #
             $Result = ""
             $NumberOfLine++
-            [bool] $DefaultValueUse = $false
+            $DefaultValueUse = 0
             
             #
             # Category
@@ -634,11 +634,11 @@
                         $Result = Get-ItemPropertyValue -Path $Finding.RegistryPath -Name $Finding.RegistryItem
                     } catch {
                         $Result = $Finding.DefaultValue
-                        $DefaultValueUse = true
+                        $DefaultValueUse = 1
                     }
                 } Else {
                     $Result = $Finding.DefaultValue
-                    $DefaultValueUse = true
+                    $DefaultValueUse = 1
                 }
             }
 
@@ -710,10 +710,12 @@
                         }
 
                     } catch {
-                        $Result = "No value set - Default value: " + $Finding.DefaultValue
+                        $Result = $Finding.DefaultValue
+                        $DefaultValueUse = 1
                     }
                 } Else {
-                    $Result = "No value set - Default value: " + $Finding.DefaultValue
+                    $Result = $Finding.DefaultValue
+                    $DefaultValueUse = 1
                 }
             }
             
@@ -752,7 +754,8 @@
                     $Result = $Matches[2]
 
                 } catch {
-                    $Result = "No value set - Default value: " + $Finding.DefaultValue
+                    $Result = $Finding.DefaultValue
+                    $DefaultValueUse = 1
                 }
             }
 
@@ -791,7 +794,8 @@
                     }
 
                 } catch {
-                    $Result = "No value set - Default value: " + $Finding.DefaultValue
+                    $Result = $Finding.DefaultValue
+                    $DefaultValueUse = 1
                 }
             }
 
@@ -819,11 +823,13 @@
                         $Result = $ResultOutput.Name
                     }
                     Else {
-                        $Result = "No value set - Default value: " + $Finding.DefaultValue
+                        $Result = $Finding.DefaultValue
+                        $DefaultValueUse = 1
                     }
 
                 } catch {
-                    $Result = "No value set - Default value: " + $Finding.DefaultValue
+                    $Result = $Finding.DefaultValue
+                    $DefaultValueUse = 1
                 }
             }
 
@@ -903,7 +909,8 @@
                     $Result = $ResultOutput.State
 
                 } catch {
-                    $Result = "No value set - Default value: " + $Finding.DefaultValue
+                    $Result = $Finding.DefaultValue
+                    $DefaultValueUse = 1
                 }
             }
 
@@ -926,7 +933,8 @@
                     }
 
                 } catch {
-                    $Result = "No value set - Default value: " + $Finding.DefaultValue
+                    $Result = $Finding.DefaultValue
+                    $DefaultValueUse = 1
                 }
             }
 
@@ -956,7 +964,8 @@
                     }
 
                 } catch {
-                    $Result = "No value set - Default value: " + $Finding.DefaultValue
+                    $Result = $Finding.DefaultValue
+                    $DefaultValueUse = 1
                 }
             }
 
@@ -972,7 +981,8 @@
                     $Result = $ResultOutput
 
                 } catch {
-                    $Result = "No value set - Default value: " + $Finding.DefaultValue
+                    $Result = $Finding.DefaultValue
+                    $DefaultValueUse = 1
                 }
             }
 
@@ -990,7 +1000,8 @@
                     $Result = $ResultOutput.$ResultArgument
 
                 } catch {
-                    $Result = "No value set - Default value: " + $Finding.DefaultValue
+                    $Result = $Finding.DefaultValue
+                    $DefaultValueUse = 1
                 }
             }
 
@@ -1006,7 +1017,8 @@
                     $ResultOutput = Get-MpPreference
                     $ResultAsrIds = $ResultOutput.AttackSurfaceReductionRules_Ids
                     $ResultAsrActions = $ResultOutput.AttackSurfaceReductionRules_Actions
-                    $Result = "No value set - Default value: " + $Finding.DefaultValue
+                    $Result = $Finding.DefaultValue
+                    $DefaultValueUse = 1
                     $Counter = 0
 
                     ForEach ($AsrRule in $ResultAsrIds) {
@@ -1019,7 +1031,8 @@
                     }
 
                 } catch {
-                    $Result = "No value set - Default value: " + $Finding.DefaultValue
+                    $Result = $Finding.DefaultValue
+                    $DefaultValueUse = 1
                 }
             }
 
@@ -1052,7 +1065,8 @@
                     $Result = $Result -replace “.$”
 
                 } catch {
-                    $Result = "No value set - Default value: " + $Finding.DefaultValue
+                    $Result = $Finding.DefaultValue
+                    $DefaultValueUse = 1
                 }
             }            
 
@@ -1074,7 +1088,8 @@
                     $Result = $ResultOutput.$ResultArgument0.$ResultArgument1
 
                 } catch {
-                    $Result = "No value set - Default value: " + $Finding.DefaultValue
+                    $Result = $Finding.DefaultValue
+                    $DefaultValueUse = 1
                 }
             }
 
@@ -1096,7 +1111,8 @@
                     $Result = $ResultOutput.$ResultArgument0.$ResultArgument1
 
                 } catch {
-                    $Result = "No value set - Default value: " + $Finding.DefaultValue
+                    $Result = $Finding.DefaultValue
+                    $DefaultValueUse = 1
                 }
             }            
 
@@ -1131,11 +1147,13 @@
                     If ($ResultOutput -match ' ([a-z,A-Z]+)') {
                         $Result = $Matches[1]
                     } Else {
-                        $Result = "No value set - Default value: " + $Finding.DefaultValue
+                        $Result = $Finding.DefaultValue
+                        $DefaultValueUse = 1
                     }
 
                 } catch {
-                    $Result = "No value set - Default value: " + $Finding.DefaultValue
+                    $Result = $Finding.DefaultValue
+                    $DefaultValueUse = 1
                 }
             }
 
@@ -1151,7 +1169,8 @@
                     $Result = $ResultOutput.Enabled
 
                 } catch {
-                    $Result = "No value set - Default value: " + $Finding.DefaultValue
+                    $Result = $Finding.DefaultValue
+                    $DefaultValueUse = 1
                 }
             }
 
@@ -1167,7 +1186,8 @@
                     $Result = $ResultOutput.StartType
 
                 } catch {
-                    $Result = "No value set - Default value: " + $Finding.DefaultValue
+                    $Result = $Finding.DefaultValue
+                    $DefaultValueUse = 1
                 }
             }
 
@@ -1255,6 +1275,9 @@
 
                     If ($Report) {
                         $Message = '"'+$NumberOfLine+'","'+$Finding.ID+'","'+$Finding.Category+'","'+$Finding.Subcategory+'","'+$Finding.Name+'","Passed","'+$Result+'","'+$Finding.DefaultValue+'","'+$Finding.Operator+'","'+$Finding.RecommendedValue+'","'+$Finding.OMP+'"'
+                        if($DefaultValueUse -eq 1) {
+                            $Message = '"'+$NumberOfLine+'","'+$Finding.ID+'","'+$Finding.Category+'","'+$Finding.Subcategory+'","'+$Finding.Name+'","Passed","No value set - Default value: '+$Result+'","'+$Finding.DefaultValue+'","'+$Finding.Operator+'","'+$Finding.RecommendedValue+'","'+$Finding.OMP+'"'
+                        }
                         Add-MessageToFile -Text $Message -File $ReportFile
                     }
 
@@ -1279,6 +1302,9 @@
 
                     If ($Report) {
                         $Message = '"'+$NumberOfLine+'","'+$Finding.ID+'","'+$Finding.Category+'","'+$Finding.Subcategory+'","'+$Finding.Name+'","'+$Finding.Severity+'","'+$Result+'","'+$Finding.DefaultValue+'","'+$Finding.Operator+'","'+$Finding.RecommendedValue+'","'+$Finding.OMP+'"'
+                        if($DefaultValueUse -eq 1) {
+                            $Message = '"'+$NumberOfLine+'","'+$Finding.ID+'","'+$Finding.Category+'","'+$Finding.Subcategory+'","'+$Finding.Name+'","'+$Finding.Severity+'","No value set - Default value: '+$Result+'","'+$Finding.DefaultValue+'","'+$Finding.Operator+'","'+$Finding.RecommendedValue+'","'+$Finding.OMP+'"'
+                        }
                         Add-MessageToFile -Text $Message -File $ReportFile
                     }
 
