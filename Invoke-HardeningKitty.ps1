@@ -512,7 +512,7 @@
         $ReportFile = "hardeningkitty_report_"+$Hostname+"_"+$ListName+"-$FileDate.csv"
     }
     If ($Report.IsPresent) {
-        $Message = '"Number","ID","Category","Subcategory","Name","Severity","Result","DefaultValue","Operator","Recommended","OMP"'
+        $Message = '"Number","ID","Category","Subcategory","Name","Severity","Result","Operator","Recommended","DefaultValue","OMP"'
         Add-MessageToFile -Text $Message -File $ReportFile
     }
     If ($Backup.IsPresent -and $BackupFile.Length -eq 0) {
@@ -1274,9 +1274,9 @@
                     }
 
                     If ($Report) {
-                        $Message = '"'+$NumberOfLine+'","'+$Finding.ID+'","'+$Finding.Category+'","'+$Finding.Subcategory+'","'+$Finding.Name+'","Passed","'+$Result+'","'+$Finding.DefaultValue+'","'+$Finding.Operator+'","'+$Finding.RecommendedValue+'","'+$Finding.OMP+'"'
+                        $Message = '"'+$NumberOfLine+'","'+$Finding.ID+'","'+$Finding.CategoryForExport+'","'+$Finding.Subcategory+'","'+$Finding.Name+'","Passed","'+$Result+'","'+$Finding.Operator+'","'+$Finding.RecommendedValue+'","'+$Finding.DefaultValue+'","'+$Finding.OMP+'"'
                         if($DefaultValueUse -eq 1) {
-                            $Message = '"'+$NumberOfLine+'","'+$Finding.ID+'","'+$Finding.Category+'","'+$Finding.Subcategory+'","'+$Finding.Name+'","Passed","No value set - Default value: '+$Result+'","'+$Finding.DefaultValue+'","'+$Finding.Operator+'","'+$Finding.RecommendedValue+'","'+$Finding.OMP+'"'
+                            $Message = '"'+$NumberOfLine+'","'+$Finding.ID+'","'+$Finding.CategoryForExport+'","'+$Finding.Subcategory+'","'+$Finding.Name+'","Passed","No value set - Default value: '+$Result+'","'+$Finding.Operator+'","'+$Finding.RecommendedValue+'","'+$Finding.DefaultValue+'","'+$Finding.OMP+'"'
                         }
                         Add-MessageToFile -Text $Message -File $ReportFile
                     }
@@ -1301,9 +1301,9 @@
                     }
 
                     If ($Report) {
-                        $Message = '"'+$NumberOfLine+'","'+$Finding.ID+'","'+$Finding.Category+'","'+$Finding.Subcategory+'","'+$Finding.Name+'","'+$Finding.Severity+'","'+$Result+'","'+$Finding.DefaultValue+'","'+$Finding.Operator+'","'+$Finding.RecommendedValue+'","'+$Finding.OMP+'"'
+                        $Message = '"'+$NumberOfLine+'","'+$Finding.ID+'","'+$Finding.CategoryForExport+'","'+$Finding.Subcategory+'","'+$Finding.Name+'","'+$Finding.Severity+'","'+$Result+'","'+$Finding.Operator+'","'+$Finding.RecommendedValue+'","'+$Finding.DefaultValue+'","'+$Finding.OMP+'"'
                         if($DefaultValueUse -eq 1) {
-                            $Message = '"'+$NumberOfLine+'","'+$Finding.ID+'","'+$Finding.Category+'","'+$Finding.Subcategory+'","'+$Finding.Name+'","'+$Finding.Severity+'","No value set - Default value: '+$Result+'","'+$Finding.DefaultValue+'","'+$Finding.Operator+'","'+$Finding.RecommendedValue+'","'+$Finding.OMP+'"'
+                            $Message = '"'+$NumberOfLine+'","'+$Finding.ID+'","'+$Finding.CategoryForExport+'","'+$Finding.Subcategory+'","'+$Finding.Name+'","'+$Finding.Severity+'","No value set - Default value: '+$Result+'","'+$Finding.Operator+'","'+$Finding.RecommendedValue+'","'+$Finding.DefaultValue+'","'+$Finding.OMP+'"'
                         }
                         Add-MessageToFile -Text $Message -File $ReportFile
                     }

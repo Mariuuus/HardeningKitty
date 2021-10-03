@@ -1,19 +1,6 @@
 Keyword;GermanWord
-NT AUTHORITY;NT-AUTORITÄT
-BUILTIN;VORDEFINIERT
 None;Keine
 Never;Nie
 Success and Failure;Erfolg und Fehler
 Success;Erfolg
 No Auditing;Keine Überwachung
-Everyone;Jeder
-Authenticated Users;Authentifizierte Benutzer
-Administrators;Administratoren
-Guests;Gäste
-Performance Log Users;Leistungsprotokollbenutzer
-Backup Operators;Sicherungs-Operatoren
-NETWORK SERVICE;Netzwerkdienst
-LOCAL SERVICE;Lokaler Dienst
-SERVICE;DIENST
-ENTERPRISE DOMAIN CONTROLLERS;Enterprise Domänencontroller
-Users; Benutzer
