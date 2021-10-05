@@ -1198,6 +1198,8 @@
             #
             If ($Mode -eq "Audit") {
 
+                #$tempValues = "Recommended Value: " + $Finding.RecommendedValue + " => "
+
                 #
                 # User Right Assignment
                 # For multilingual support, a SID translation takes place and then the known SID values are compared with each other.
@@ -1242,10 +1244,18 @@
                     "=|0" { try { If ([string]$Result -eq $Finding.RecommendedValue -or $Result.Length -eq 0) { $ResultPassed = $true }} catch { $ResultPassed = $false }; Break}
                 }
 
+                #$tempValues = $tempValues + $Finding.RecommendedValue + " ("+$Finding.Operator+") "+$Result+ " // "+ $ResultPassed
+
+                
+
                 #
                 # Restore Result after SID translation
                 # The results are already available as SID, for better readability they are translated into their names
                 #
+                $tempValues = "Result: "+$Result+ " / RecommendedValue: " +$Finding.RecommendedValue + " => "
+                $debugTemp = "Result: ("+$Result+")"
+                Write-Output $debugTemp
+
                 If ($Finding.Method -eq 'accesschk') {
 
                     If ($Result -ne "") {
@@ -1258,10 +1268,17 @@
                         $ResultName = $ResultName -replace ".$"
                         $Result = $ResultName
                         Clear-Variable -Name ("ResultName")
+                        $tempValues = $tempValues + " peep "
                     }
                                         
                     $Finding.RecommendedValue = $SaveRecommendedValue
-                }                
+                    $tempValues = $tempValues + " poopi "
+
+                }       
+
+                $tempValues = $tempValues + "Result: "+$Result+ " / RecommendedValue: " +$Finding.RecommendedValue
+                
+                Write-Output $tempValues
 
                 If ($ResultPassed) {
 
