@@ -609,6 +609,7 @@
             $Result = ""
             $NumberOfLine++
             $DefaultValueUse = 0
+
             
             #
             # Category
@@ -1213,6 +1214,8 @@
                         $ListRecommended = $Finding.RecommendedValue.Split(";")
                         $ListRecommendedSid = @()
 
+                        Write-Output $SaveRecommendedValue
+
                         # SID Translation
                         ForEach ($AccountName in $ListRecommended) {
                             $AccountSid = Translate-SidFromWellkownAccount -AccountName $AccountName
@@ -1253,13 +1256,14 @@
                 # The results are already available as SID, for better readability they are translated into their names
                 #
                 $tempValues = "Result: "+$Result+ " / RecommendedValue: " +$Finding.RecommendedValue + " => "
-                $debugTemp = "Result: ("+$Result+")"
-                Write-Output $debugTemp
+                
+                
 
                 If ($Finding.Method -eq 'accesschk') {
 
-                    If ($Result -ne "") {
+                    If ($Result -ne '') {
 
+                        $ResultName = ""
                         $ListResult = $Result.Split(";")
                         ForEach ($AccountSid in $ListResult) {
                             $AccountName = Get-AccountFromSid -AccountSid $AccountSid
@@ -1268,11 +1272,12 @@
                         $ResultName = $ResultName -replace ".$"
                         $Result = $ResultName
                         Clear-Variable -Name ("ResultName")
-                        $tempValues = $tempValues + " peep "
                     }
-                                        
+                    $debugTemp = "Result: ("+$Finding.RecommendedValue+") => "                    
                     $Finding.RecommendedValue = $SaveRecommendedValue
-                    $tempValues = $tempValues + " poopi "
+                    #$SaveRecommendedValue = ""
+                    $debugTemp = $debugTemp + "Result: ("+$Finding.RecommendedValue+")"
+                    Write-Output $debugTemp
 
                 }       
 
