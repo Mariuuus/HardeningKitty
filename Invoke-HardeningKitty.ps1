@@ -1208,9 +1208,10 @@
                 #
                 If ($Finding.Method -eq 'accesschk') {
 
+                    $SaveRecommendedValue = $Finding.RecommendedValue
+
                     If ($Result -ne '') {
 
-                        $SaveRecommendedValue = $Finding.RecommendedValue
                         $ListRecommended = $Finding.RecommendedValue.Split(";")
                         $ListRecommendedSid = @()
 
@@ -1275,7 +1276,6 @@
                     }
                     $debugTemp = "Result: ("+$Finding.RecommendedValue+") => "                    
                     $Finding.RecommendedValue = $SaveRecommendedValue
-                    #$SaveRecommendedValue = ""
                     $debugTemp = $debugTemp + "Result: ("+$Finding.RecommendedValue+")"
                     Write-Output $debugTemp
 
