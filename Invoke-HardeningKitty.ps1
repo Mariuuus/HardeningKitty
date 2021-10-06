@@ -1198,14 +1198,14 @@
             # There are two output formats, one for command line output and one for the CSV file.
             #
             If ($Mode -eq "Audit") {
-
-                #$tempValues = "Recommended Value: " + $Finding.RecommendedValue + " => "
-
                 #
                 # User Right Assignment
                 # For multilingual support, a SID translation takes place and then the known SID values are compared with each other.
                 # The results are already available as SID (from secedit) and therefore the specifications are now also translated and still sorted.
                 #
+
+                $tempValues = "Result: "+$Result+ " / RecommendedValue: " +$Finding.RecommendedValue + " => "
+
                 If ($Finding.Method -eq 'accesschk') {
 
                     $SaveRecommendedValue = $Finding.RecommendedValue
@@ -1215,12 +1215,14 @@
                         $ListRecommended = $Finding.RecommendedValue.Split(";")
                         $ListRecommendedSid = @()
 
-                        Write-Output $SaveRecommendedValue
-
                         # SID Translation
                         ForEach ($AccountName in $ListRecommended) {
                             $AccountSid = Translate-SidFromWellkownAccount -AccountName $AccountName
                             $ListRecommendedSid += $AccountSid                            
+                        }
+                        #special german possible case
+                        if($Result -eq "Gast") {
+                            $Result = "S-1-5-32-546"
                         }
                         # Sort SID List
                         $ListRecommendedSid = $ListRecommendedSid | Sort-Object
@@ -1248,18 +1250,12 @@
                     "=|0" { try { If ([string]$Result -eq $Finding.RecommendedValue -or $Result.Length -eq 0) { $ResultPassed = $true }} catch { $ResultPassed = $false }; Break}
                 }
 
-                #$tempValues = $tempValues + $Finding.RecommendedValue + " ("+$Finding.Operator+") "+$Result+ " // "+ $ResultPassed
-
-                
 
                 #
                 # Restore Result after SID translation
                 # The results are already available as SID, for better readability they are translated into their names
                 #
-                $tempValues = "Result: "+$Result+ " / RecommendedValue: " +$Finding.RecommendedValue + " => "
                 
-                
-
                 If ($Finding.Method -eq 'accesschk') {
 
                     If ($Result -ne '') {
@@ -1273,15 +1269,12 @@
                         $ResultName = $ResultName -replace ".$"
                         $Result = $ResultName
                         Clear-Variable -Name ("ResultName")
-                    }
-                    $debugTemp = "Result: ("+$Finding.RecommendedValue+") => "                    
+                    }             
                     $Finding.RecommendedValue = $SaveRecommendedValue
-                    $debugTemp = $debugTemp + "Result: ("+$Finding.RecommendedValue+")"
-                    Write-Output $debugTemp
 
                 }       
 
-                $tempValues = $tempValues + "Result: "+$Result+ " / RecommendedValue: " +$Finding.RecommendedValue
+                $tempValues = $tempValues + "Result: "+$Result+ " / RecommendedValue: " +$Finding.RecommendedValue + " / Passed: " + $ResultPassed
                 
                 Write-Output $tempValues
 
