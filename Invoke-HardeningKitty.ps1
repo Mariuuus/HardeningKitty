@@ -1202,9 +1202,6 @@
                 # User Right Assignment
                 # For multilingual support, a SID translation takes place and then the known SID values are compared with each other.
                 # The results are already available as SID (from secedit) and therefore the specifications are now also translated and still sorted.
-                #
-
-                $tempValues = "Result: "+$Result+ " / RecommendedValue: " +$Finding.RecommendedValue + " => "
 
                 If ($Finding.Method -eq 'accesschk') {
 
@@ -1272,11 +1269,7 @@
                     }             
                     $Finding.RecommendedValue = $SaveRecommendedValue
 
-                }       
-
-                $tempValues = $tempValues + "Result: "+$Result+ " / RecommendedValue: " +$Finding.RecommendedValue + " / Passed: " + $ResultPassed
-                
-                Write-Output $tempValues
+                }
 
                 If ($ResultPassed) {
 
